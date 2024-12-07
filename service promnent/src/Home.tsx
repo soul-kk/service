@@ -1,25 +1,37 @@
-// src/Home.tsx
+import React from 'react';
 import { Link } from 'react-router-dom';
-import './Home.css';  // 引入 CSS 文件
-
 
 const Home = () => (
-  <div>
-    <h1>杭电学习指南</h1>
+  <div style={{ position: 'relative', minHeight: '100vh' }}>
+    <h1>Welcome to Our Site</h1>
     <Link to="/customer-service">
       <button
         style={{
-          padding: '10px 20px',
-          backgroundColor: '#007BFF',
+          position: 'absolute',
+          bottom: '20px',  // 固定在底部
+          right: '20px',   // 固定在右侧
+          width: '60px',    // 设置按钮宽度
+          height: '60px',   // 设置按钮高度
+          borderRadius: '50%', // 圆形按钮
+          backgroundColor: '#007BFF',  // 按钮颜色
           color: 'white',
-          border: '2px solid transparent',
-          borderRadius: '5px',
+          border: 'none',
+          fontSize: '20px',
           cursor: 'pointer',
-          fontWeight: 'bold',
-          transition: 'all 0.3s ease',  // 平滑过渡所有变化
+          transition: 'all 0.3s ease',  // 添加平滑的过渡效果
+        }}
+        onMouseEnter={(e) => {
+          // 类型断言
+          const target = e.target as HTMLButtonElement;
+          target.style.transform = 'scale(1.1)';  // 鼠标悬停时按钮放大
+        }}
+        onMouseLeave={(e) => {
+          // 类型断言
+          const target = e.target as HTMLButtonElement;
+          target.style.transform = 'scale(1)';  // 鼠标离开时恢复原状
         }}
       >
-        ~客服~
+        🛎️
       </button>
     </Link>
   </div>

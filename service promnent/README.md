@@ -1,1 +1,1 @@
-https://github.com/soul-kk/frontend_to_weiyang.git
+https://github.com/soul-kk/service.git
