@@ -1,6 +1,7 @@
 //ChatByAI.tsx
 import  { useState } from 'react';
 
+
 const ChatByAI = () => {
   const [messages, setMessages] = useState<{ sender: string, text: string }[]>([]);
   const [input, setInput] = useState<string>('');
