@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const CustomerService = () => {
@@ -9,10 +9,10 @@ const CustomerService = () => {
 
   // 问题列表
   const questions = [
-    { id: 1, title: '如何重置密码？', details: '重置密码的步骤是……' },
-    { id: 2, title: '如何联系客服？', details: '您可以通过……联系客服。' },
-    { id: 3, title: '如何查看订单？', details: '通过“我的订单”页面查看……' },
-    { id: 4, title: '如何修改个人信息？', details: '在设置页面修改您的个人信息。' }
+    { id: 1, title: '如何学习数学？', details: '找规律+勤动手+坚持' },
+    { id: 2, title: '如何学习英语？', details: '词汇量+多读+多听+多说' },
+    { id: 3, title: '如何学好编程？', details: '基础+实践+耐心解决问题+持续的学习与思考' },
+    { id: 4, title: '如何过好自己的生活', details: '活在当下' }
   ];
 
   const handleButtonClick = (buttonType: string) => {
@@ -21,10 +21,10 @@ const CustomerService = () => {
       setSelectedQuestion(null); // 重置已选择的问题
     } else if (buttonType === '询问') {
       setView('phone');
-      setContent('请联系客服电话：15934125523');
+      setContent('请联系客服电话:15934125523');
     } else if (buttonType === '获取更多帮助') {
       setView('help');
-      setContent('请查看以下帮助内容：');
+      setContent('欢迎加群交流！');
     }
   };
 
@@ -39,91 +39,124 @@ const CustomerService = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', paddingBottom: '50px' }}>
-      <button
-        onClick={() => navigate('/')}
+      <div
         style={{
-          margin: '20px',
-          padding: '10px 20px',
-          backgroundColor: '#007BFF',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: 'pointer',
+          display: 'flex',               // 使用 flexbox 布局
+          justifyContent: 'center',      // 水平居中
+          alignItems: 'center',          // 垂直居中
+          position: 'fixed',             // 固定位置
+          top: '20px',                   // 距离顶部20px
+          left: '50%',                   // 水平居中
+          transform: 'translateX(-50%)', // 水平居中
+          zIndex: 10,                    // 确保按钮在其他内容之上
         }}
       >
-        Back to Home
-      </button>
+        <button
+          onClick={() => navigate('/')}
+          style={{
+            padding: '10px 20px',
+            backgroundColor: '#007BFF',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+            width: '200px',  // 固定宽度
+            textAlign: 'center', // 文本居中
+          }}
+        >
+          Back to Home
+        </button>
+      </div>
 
-      <h1>Customer Service</h1>
 
-      {/* 问题列表视图 */}
-      {view === 'list' && (
-        <div>
-          <h2>问题列表</h2>
-          <ul>
-            {questions.map((question) => (
-              <li key={question.id}>
-                <button
-                  onClick={() => handleQuestionClick(question.id)}
-                  style={{
-                    padding: '10px',
-                    margin: '5px 0',
-                    background: '#f4f4f4',
-                    border: '1px solid #ddd',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                  }}
-                >
-                  {question.title}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+          paddingTop: '80px',  // 给顶部添加一些空间，避免被按钮遮挡
+          paddingBottom: '50px',  // 留出底部空间
+        }}
+      >
+        {/* 页面其他内容 */}
 
-      {/* 问题详情视图 */}
-      {view === 'detail' && selectedQuestion !== null && (
-        <div>
-          <h2>问题详情</h2>
-          <p>{content}</p>
-          <button
-            onClick={() => {
-              setSelectedQuestion(null);
-              setView('list'); // 返回问题列表视图
-            }}
-            style={{ padding: '10px', marginTop: '20px' }}
-          >
-            返回问题列表
-          </button>
-        </div>
-      )}
 
-      {/* 客服电话视图 */}
-      {view === 'phone' && (
-        <div>
-          <h2>客服电话</h2>
-          <p>{content}</p>
-        </div>
-      )}
+        <h1>祝你开心</h1>
 
-      {/* 更多帮助视图 */}
-      {view === 'help' && (
-        <div>
-          <h2>{content}</h2>
-          <img
-            src="/image.png"
-            alt="Help Image"
-            style={{
-              width: '60%',
-              height: 'auto',
-              display: 'block',
-              margin: '0 auto',
-            }}
-          />
-        </div>
-      )}
+        {/* 问题列表视图 */}
+        {view === 'list' && (
+          <div style={{
+            padding: '20px',
+            borderRadius: '10px',  // 圆角效果，使阴影更加柔和
+            backgroundColor: '#fff',  // 背景颜色
+            boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.1)',  // 添加阴影效果，水平偏移、垂直偏移、模糊半径、颜色
+            margin: '20px 0',  // 设置与其他元素之间的距离
+          }}>
+            <h2>问题列表</h2>
+            <ul>
+              {questions.map((question) => (
+                <li key={question.id}>
+                  <button
+                    onClick={() => handleQuestionClick(question.id)}
+                    style={{
+                      padding: '10px',
+                      margin: '5px 0',
+                      background: '#f4f4f4',
+                      border: '1px solid #ddd',
+                      borderRadius: '5px',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    {question.title}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
+        {/* 问题详情视图 */}
+        {view === 'detail' && selectedQuestion !== null && (
+          <div>
+            <h2>回答</h2>
+            <p>{content}</p>
+            <button
+              onClick={() => {
+                setSelectedQuestion(null);
+                setView('list'); // 返回问题列表视图
+              }}
+              style={{ padding: '10px', marginTop: '20px', color: 'white' }}
+            >
+              返回问题列表
+            </button>
+          </div>
+        )}
+
+        {/* 客服电话视图 */}
+        {view === 'phone' && (
+          <div>
+            <h2 >客服电话</h2>
+            <p>{content}</p>
+          </div>
+        )}
+
+        {/* 更多帮助视图 */}
+        {view === 'help' && (
+          <div>
+            <h2>{content}</h2>
+            <img
+              src="/image.png"
+              alt="Help Image"
+              style={{
+                width: '60%',
+                height: 'auto',
+                display: 'block',
+                margin: '0 auto',
+              }}
+            />
+          </div>
+        )}
+      </div>
       {/* 底部按钮区域 */}
       <div
         style={{
@@ -138,9 +171,9 @@ const CustomerService = () => {
           background: 'transparent',
         }}
       >
-        <button onClick={() => handleButtonClick('主页')}>主页</button>
-        <button onClick={() => handleButtonClick('询问')}>询问</button>
-        <button onClick={() => handleButtonClick('获取更多帮助')}>获取更多帮助</button>
+        <button onClick={() => handleButtonClick('主页')} style={{ color: 'white' }}>主页</button>
+        <button onClick={() => handleButtonClick('询问')} style={{ color: 'white' }}>询问</button>
+        <button onClick={() => handleButtonClick('获取更多帮助')} style={{ color: 'white' }}>获取更多帮助</button>
       </div>
     </div>
   );
