@@ -36,7 +36,7 @@ app.post('/get-answer', async (req, res) => {
     const answer = response.data.choices[0].message.content.trim();
     res.json({ answer });
   } catch (error) {
-    console.error(error);
+    console.error('Error in server:', error.response?.data || error.message);
     res.status(500).json({ answer: '抱歉，发生了错误。' });
   }
 });
