@@ -1,35 +1,39 @@
-// server.js
-const express = require('express');
-const axios = require('axios');
-const bodyParser = require('body-parser');
+import express from 'express';
+import axios from 'axios';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+
+dotenv.config();  // 加载 .env 文件
 
 const app = express();
 const port = 5000;
 
-// 设置 OpenAI API 密钥
-const openaiApiKey = 'sk-YF0BTEW1xTUoEVZQFlVluffKLD1rvu4ZCgiYobrFZt98pl7h';  // 在这里填入你的 OpenAI API 密钥
+const openaiApiKey = process.env.OPENAI_API_KEY;  // 从环境变量中获取密钥
 
-// 使用 body-parser 解析 JSON 请求体
 app.use(bodyParser.json());
+app.use(cors());  // 启用 CORS 以允许跨域请求
 
-// 接收前端请求的问题
 app.post('/get-answer', async (req, res) => {
   const { question } = req.body;
 
   try {
-    const response = await axios.post('https://api.openai.com/v1/completions', {
-      model: 'gpt-4',  // 使用 GPT-4 模型
-      prompt: question,
-      max_tokens: 150,
-    }, {
-      headers: {
-        'Authorization': `Bearer ${openaiApiKey}`,
-        'Content-Type': 'application/json',
+    const response = await axios.post(
+      'https://api.openai.com/v1/chat/completions',
+      {
+        model: 'gpt-4',
+        messages: [{ role: 'user', content: question }],
+        max_tokens: 150,
+      },
+      {
+        headers: {
+          'Authorization': `Bearer ${openaiApiKey}`,
+          'Content-Type': 'application/json',
+        },
       }
-    });
+    );
 
-    // 发送返回的答案
-    const answer = response.data.choices[0].text.trim();
+    const answer = response.data.choices[0].message.content.trim();
     res.json({ answer });
   } catch (error) {
     console.error(error);
