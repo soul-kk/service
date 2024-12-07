@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import  { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ChatByAI from './ChatByAI'; 
 
 const CustomerService = () => {
   const [view, setView] = useState<'list' | 'detail' | 'phone' | 'help'>('list');
@@ -134,10 +135,7 @@ const CustomerService = () => {
 
         {/* 客服电话视图 */}
         {view === 'phone' && (
-          <div>
-            <h2 >客服电话</h2>
-            <p>{content}</p>
-          </div>
+           <ChatByAI />
         )}
 
         {/* 更多帮助视图 */}
